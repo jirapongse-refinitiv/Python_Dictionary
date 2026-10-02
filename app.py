@@ -19,6 +19,17 @@ class RDMFieldDictionary:
                 return None
         else:
             return None
+    def GetEnumEntry(self, name, enumid):
+        if name in self._dict.keys():
+            if(self._dict[name]["enum"]==None):
+                return None
+            
+            if enumid in self._enum[self._dict[name]["enum"]].keys():
+                return self._enum[self._dict[name]["enum"]][enumid]
+            else:
+                return None
+        else:
+            return None
 
     def GetFieldByName(self, name):
         if name in self._dict.keys():
@@ -59,7 +70,7 @@ class RDMFieldDictionary:
                     first_doublequote = line.find("\"")
                     second_doublequote = line.find("\"",first_doublequote+1)
                     enum_expand = line[first_doublequote+1:second_doublequote].strip()
-                    enum_description = line[second_doublequote+1:].lstrip()
+                    enum_description = line[second_doublequote+1:].lstrip().rstrip('\n')
                     #print("'",enum_expand,"'", enum_description)
 
                 enumList[int(enum_id)] = {"enum": enum_id,
@@ -129,3 +140,4 @@ print(p1.GetFieldByName("BID"))
 print(p1.GetFieldByName("PRCTCK_1"))
 print(p1.GetFieldByName("TICK_"))
 print(p1.GetExpandedEnumString("CURRENCY",344))
+print(p1.GetEnumEntry("CURRENCY",344))
