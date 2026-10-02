@@ -64,7 +64,7 @@ class RDMFieldDictionary:
                     first_hash = line.find("#")
                     second_hash = line.find("#",first_hash+1)+1
                     enum_expand = line[first_hash:second_hash]
-                    enum_description = line[second_hash:].lstrip()
+                    enum_description = line[second_hash:].lstrip().rstrip('\n')
                     #print("'",enum_expand,"'", enum_description)
                 else:
                     first_doublequote = line.find("\"")
